@@ -1,0 +1,19 @@
+Source of Info: ASP.NET Core 101 (Youtube)
+
+ASP.NET Notes:
+- Create WebApps with C# backend and .NET framework and even HTML, CSS, and JS.
+
+	HOW TO HOOK UP A DATABASE:
+	- This is very complicated and deserves its own video series but we could use a .json file for its
+
+
+	Models: A C# file (describes what a product is)
+	
+	Requesting ASP.NET Services:
+	Single Responsibility Principle: Have a class linked to a service that will get and set all of the attributes
+		for that class's objects.
+		
+	***** Did most of my notes within the respective places in the ASP.NET project.
+	
+
+IDEA - GraphQL API:

@@ -1,0 +1,131 @@
+﻿@*@using Microsoft.AspNetCore.Components.Web*@
+@using InternalForcesGUI.Models
+@using InternalForcesGUI.Services
+@inject JsonFileUserInputService userInputService
+@* One can actuall write an entire HTML application in blazor, modelview controller, or just in pages *@
+
+@* Put code into a .razor file to reuse it often *@
+
+@* This is our main div *@
+<div class="account-cards">
+    @foreach (var userInput in userInputService.GetuserInput())
+    {
+        <div class="card">
+            <div class="card-img" style="background-image: url('@userInput.Graph1');"></div>
+            <div class="card-body">
+                <h5 class="card-id">@userInput.ID</h5>
+            </div>
+        </div>
+        <div class="card-footer">
+            <small class="text-muted">
+
+                @* Creating a button and setting the button to a clicking even (this is blazor specific)*@
+                @* Also we do some bootstrappy stuff and implement toggleable and button graphic *@
+                <button @onclick="(e => SelectUserInput(userInput.ID)"
+                        data-toggle="modal" data-target="#userInputModal" class="btn-primary">
+                    More Info
+                </button>
+            </small>
+        </div>
+    }
+</div>
+
+<link href="https://use.fontawesome.com/150c17fdd5.js" rel="stylesheet">
+
+@* About bootstrap. Bootstrap is a collection of reuseable HTML, CSS, and JS code that can help with web development *@
+
+@* This is a conditional div (VERY VERY IMPORTANT FOR THE GUI PROJECT) *@
+@if (selecteduserInput != null)
+{
+    <div class="modal fade" id="userInputModal" tabindex="-1" role="dialog" aria-labelledby="userInputId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-Id" id="userInputId">@selecteduserInput.ID</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-img" style="background-image: url('@selecteduserInput.Graph1');">
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">@selecteduserInput.Graph2</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                @* Don't have data objects in the json for this but this is most likely the kind of
+                    thing that I would have to do to grab the user input when I make the GUI *@
+                <div class="modal-footer">
+                    @if (voteCount == 0)
+                    {
+                        <span>Be the first to vote!</span>
+                    }
+                    else
+                    {
+                        <span>@voteCount @voteLabel</span>
+                    }
+                    @for (int i = 1; i < 5; i++)
+                    {
+                        var currentStar = i;
+                        if (i <= currentRating)
+                        {
+                            // on click make the start graphic the checked one and submit the rating.
+                            <span class="fa fa-star checked" @onclick="(e => SubmitRating(currentStar))"></span>
+                        }
+                        else
+                        {
+                            // not on click? Scroll over star icon
+                            <span class="fa fa-star" @onclick="(e => SubmitRating(currentStar))"></span>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    userInput selecteduserInput;
+    string selecteduserInputId;
+
+    void SelectUserInput(string userInputId)
+    {
+        selecteduserInputId = userInputId;
+        selecteduserInput = userInputService.GetuserInput().First(x => x.ID == userInputId);
+        GetCurrentRating();
+    }
+    
+    int currentRating = 0;
+    int voteCount = 0;
+    string voteLabel; // "You have _ vote(s)
+
+    void GetCurrentRating()
+    {
+        
+        if (selecteduserInput.Ratings == null)
+        {
+            currentRating = 0;
+            voteCount = 0;
+        }
+        else
+        {
+            voteCount = selecteduserInput.Ratings.Count();
+            voteLabel = voteCount > 1 ? "Votes" : "Vote";
+            currentRating = selecteduserInput.Ratings.Sum() / voteCount;
+        }
+
+        // This is just to debug in console. Can do better with a tracepoint
+        System.Console.WriteLine($"Current Rating for  {selecteduserInput.ID}: {currentRating}");
+    }
+
+    void SubmitRating(int rating)
+    {
+        System.Console.WriteLine($"Current Rating for  {selecteduserInput.ID}: {rating}");
+        userInputService.AddRating(selecteduserInputId, rating);
+        SelectUserInput(selecteduserInputId);
+    }
+}

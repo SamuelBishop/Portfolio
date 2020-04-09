@@ -1,0 +1,27 @@
+﻿@page
+@using InternalForcesGUI.Components 
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+@* 
+    This is called a razor page HTML file. It has some properties of HTML and some properties of C#.
+    How it works:
+    - Standard HTML code
+    - When you type @{...} the contained code is C#. For backend and server side applications (All of this runs on server side).
+
+    Page Model:
+    - The index.cshtml.cs file contains objects that discribe the HTML
+*@
+
+<div class="text-center">
+    <h1 class="display-4">Internal Forces Calculator and Graphing Tool</h1>
+    <p>Samuel Bishop Professor Adu-Gyamfi ENGINR 1200</p>
+</div>
+
+@* Probably put all the rest of the code into a blazor service. It will be easier. *@
+@(await Html.RenderComponentAsync<UserInputList>(RenderMode.ServerPrerendered))
+
+@* Telling the system that we want to use Blazor servies. Not actually writing javascript *@
+<script src="framework/blazor.server.js"></script>

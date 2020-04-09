@@ -1,0 +1,45 @@
+[
+  {
+    "ID": "Samuel Bishop",
+    "DistributedForce": 123.25,
+    "Distance1": 123.25,
+    "AXComp": 123.25,
+    "AYComp": 123.25,
+    "Graph1": "https://user-images.githubusercontent.com/41929050/61567048-13938600-aa33-11e9-9cfd-712191013192.jpeg",
+    "Graph2": "Graph1 String Location",
+    "Ratings": [
+      5,
+      5,
+      0,
+      0,
+      5,
+      4
+    ]
+  },
+  {
+    "ID": "Alfred Chan",
+    "DistributedForce": 123.25,
+    "Distance1": 123.25,
+    "AXComp": 123.25,
+    "AYComp": 123.25,
+    "Graph1": "https://user-images.githubusercontent.com/41929050/61567048-13938600-aa33-11e9-9cfd-712191013192.jpeg",
+    "Graph2": "Graph1 String Location",
+    "Ratings": [
+      5,
+      5
+    ]
+  },
+  {
+    "ID": "Henry Bahr",
+    "DistributedForce": 123.25,
+    "Distance1": 123.25,
+    "AXComp": 123.25,
+    "AYComp": 123.25,
+    "Graph1": "https://user-images.githubusercontent.com/41929050/61567048-13938600-aa33-11e9-9cfd-712191013192.jpeg",
+    "Graph2": "Graph1 String Location",
+    "Ratings": [
+      5,
+      5
+    ]
+  }
+]
